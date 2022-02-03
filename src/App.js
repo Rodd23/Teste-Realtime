@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import api from "./api";
+import Users from "./components/Users";
 
 function App() {
+  
+  const [user, setUser] = useState("");
+  const [data, setData] = useState(0);
+
+  useEffect(()=>{
+   getUser() 
+  },[])
+
+  useEffect(()=> {
+    setTimeout(()=> {
+      setData(data + 1)
+      getUser()
+      console.log(user)
+    },10000)
+  },[data])
+
+  function getUser() {
+    api.get("/signup").then((user)=> {
+      user.data.map(user => setUser(user.name))
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Users name={user}/>
     </div>
   );
 }
