@@ -20,7 +20,7 @@ function App() {
   },[data])
 
   function getUser() {
-    api.get("/signup").then((user)=> {
+    api.get("/users").then((user)=> {
       user.data.map(user => setUser(user.name))
     })
   }
